@@ -1,4 +1,4 @@
-# Cloud Environment Setup Repository
+# Cloud and DevOps Automation Toolkit
 
 This repository contains a set of automated bash scripts designed to streamline the setup of a cloud server environment for hosting applications. These scripts provide a quick and consistent way to configure and deploy applications built with Node.js and Python on an Ubuntu server. They handle essential updates, upgrades, and package installations, making it easy to set up and deploy applications on a fresh server.
 
@@ -12,7 +12,7 @@ The repository is organized into directories based on the type of environment se
 Contains bash scripts to automate the setup of a Node.js environment on an Ubuntu server. This includes installation of Node.js, npm, and any necessary global packages. The scripts also include optional configurations for commonly used tools such as PM2 for process management and Nginx as a reverse proxy.
 
 ```bash
-cloud-devops-scripts/
+cloud-automation-toolkit/
 ├── ci_cd/                           # Continuous Integration and Continuous Deployment
 │   ├── github-actions/              # GitHub Actions workflows
 │   │   └── main.yml                 # Main CI/CD workflow file
