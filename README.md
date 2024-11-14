@@ -46,15 +46,15 @@ bash
     cd <repository-directory>
 ````
 
-** Navigate to the directory that matches your setup needs (e.g., node-setup/ for a Node.js environment).
+Navigate to the directory that matches your setup needs (e.g., node-setup/ for a Node.js environment).
 
-** Make the scripts executable:
+- **1 Make the scripts executable** :
 
 ````Bash
     chmod +x *.sh
 ````
 
-** Run the scripts in the order provided to ensure a successful setup:
+- **2 Run the scripts in the order provided to ensure a successful setup** :
 
 ````bash
     ./setup-node.sh  # Example for Node.js setup
