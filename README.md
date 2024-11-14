@@ -11,6 +11,96 @@ The repository is organized into directories based on the type of environment se
 /node-setup/
 Contains bash scripts to automate the setup of a Node.js environment on an Ubuntu server. This includes installation of Node.js, npm, and any necessary global packages. The scripts also include optional configurations for commonly used tools such as PM2 for process management and Nginx as a reverse proxy.
 
+```bash
+cloud-devops-scripts/
+├── ci_cd/                           # Continuous Integration and Continuous Deployment
+│   ├── github-actions/              # GitHub Actions workflows
+│   │   └── main.yml                 # Main CI/CD workflow file
+│   ├── jenkins/                     # Jenkins pipeline files
+│   │   └── Jenkinsfile              # Jenkins pipeline definition
+│   └── scripts/                     # Reusable scripts for CI/CD tasks
+│       ├── build.sh                 # Build script template
+│       ├── deploy.sh                # Deployment script
+│       └── test.sh                  # Test automation script
+│
+├── containers/                      # Containerization configurations
+│   ├── Dockerfiles/                 # Reusable Dockerfiles
+│   │   ├── app.Dockerfile           # Sample application Dockerfile
+│   │   └── nginx.Dockerfile         # NGINX Dockerfile for reverse proxy
+│   ├── docker-compose.yml           # Docker Compose file for local multi-container setups
+│   └── kubernetes/                  # Kubernetes configuration files
+│       ├── app-deployment.yml       # Sample deployment for app
+│       ├── nginx-service.yml        # Service file for NGINX
+│       └── configmap.yml            # ConfigMap for environment variables
+│
+├── infra/                           # Infrastructure as Code (IaC)
+│   ├── terraform/                   # Terraform modules and environment configurations
+│   │   ├── modules/                 # Modular Terraform code
+│   │   │   ├── networking/          # Network configuration
+│   │   │   ├── compute/             # Compute resources (EC2, GKE, etc.)
+│   │   │   └── storage/             # Storage resources (S3, etc.)
+│   │   ├── env/                     # Environment-specific configurations
+│   │   │   ├── dev.tf               # Development environment variables
+│   │   │   └── prod.tf              # Production environment variables
+│   │   └── main.tf                  # Main Terraform entry point
+│   └── ansible/                     # Configuration management scripts
+│       ├── roles/                   # Reusable Ansible roles
+│       │   ├── webserver/           # Role for web server setup
+│       │   └── database/            # Role for database setup
+│       ├── playbooks/               # High-level playbooks for specific environments
+│       │   ├── site.yml             # Main playbook
+│       │   └── dev.yml              # Development environment playbook
+│       └── inventories/             # Inventory files for hosts
+│           ├── dev.ini              # Dev environment hosts
+│           └── prod.ini             # Prod environment hosts
+│
+├── monitoring/                      # Monitoring and logging configurations
+│   ├── prometheus/                  # Prometheus configuration for metrics
+│   │   └── prometheus.yml           # Prometheus configuration file
+│   ├── grafana/                     # Grafana configuration files and dashboards
+│   │   └── dashboard.json           # Sample Grafana dashboard configuration
+│   └── logging/                     # Centralized logging configurations
+│       ├── fluentd.conf             # Fluentd configuration for log aggregation
+│       └── logstash.conf            # Logstash configuration file
+│
+├── security/                        # Security and compliance scripts
+│   ├── secrets_management/          # Scripts for handling secrets
+│   │   └── vault_setup.sh           # HashiCorp Vault setup script
+│   └── vulnerability_scans/         # Vulnerability scanning scripts and tools
+│       └── trivy_scan.sh            # Trivy scan script for Docker images
+│
+├── scripts/                         # Reusable general-purpose scripts
+│   ├── backup.sh                    # Automated backup script
+│   ├── cleanup.sh                   # Resource cleanup script
+│   ├── healthcheck.sh               # Basic health check script
+│   └── monitoring.sh                # Monitoring check script
+│
+├── templates/                       # Templates for configuration files
+│   ├── nginx.conf                   # NGINX configuration template
+│   ├── systemd_service.template     # Systemd service file template
+│   └── env.template                 # Environment variable template
+│
+├── tests/                           # Test scripts and testing framework configurations
+│   ├── infra_tests/                 # Infrastructure tests (e.g., with Terratest)
+│   │   └── test_networking.go       # Example test for networking
+│   └── script_tests/                # Tests for shell scripts
+│       ├── test_backup.sh           # Test for backup script
+│       └── test_cleanup.sh          # Test for cleanup script
+│
+├── docs/                            # Documentation for the repository
+│   ├── README.md                    # Main documentation for repository overview
+│   ├── SETUP.md                     # Instructions for setting up environments
+│   ├── CI_CD_GUIDE.md               # Guide for CI/CD pipeline configurations
+│   ├── INFRA_GUIDE.md               # Guide on IaC modules and configurations
+│   └── MONITORING_GUIDE.md          # Guide for setting up monitoring and logging
+│
+├── .gitignore                       # Ignoring unnecessary files
+├── .editorconfig                    # Editor config for consistent coding styles
+├── .pre-commit-config.yaml          # Configurations for pre-commit hooks
+└── LICENSE                          # License for the repository
+
+```
+
 ### /python-setup/
 
 Contains scripts for setting up a Python environment on an Ubuntu server. The setup includes installing Python, pip, and virtual environment management tools. These scripts also handle dependencies and configurations necessary for deploying Flask, Django, or other Python-based applications.
