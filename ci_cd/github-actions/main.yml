@@ -1,0 +1,97 @@
+name: My App CI/CD Workflow
+
+on:
+  push:
+    branches:
+      - main || master
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        working-directory: ./backend || secrets.BASE_DIR_FILE_PATH
+        run: npm install
+
+      # Uncomment if tests are implemented
+      # - name: Run tests
+      #   working-directory: secrets.BASE_DIR_FILE_PATH
+      #   run: npm test
+
+  deploy:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        working-directory: secrets.BASE_DIR_FILE_PATH
+        run: npm install
+
+      - name: Add server to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Backup Existing App
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SERVER_USER: ${{ secrets.SERVER_USER }}
+          SERVER_HOST: ${{ secrets.SERVER_HOST }}
+        run: |
+          echo "$SSH_PRIVATE_KEY" > private_key
+          chmod 600 private_key
+          ssh -i private_key $SERVER_USER@$SERVER_HOST "cp -r ~/BASE_DIR_FILE_PATH ~/BACKUP_DIR_FILE_PATH"
+          rm private_key
+
+      - name: Deploy to Versioned Directory
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SERVER_USER: ${{ secrets.SERVER_USER }}
+          SERVER_HOST: ${{ secrets.SERVER_HOST }}
+        run: |
+          echo "$SSH_PRIVATE_KEY" > private_key
+          chmod 600 private_key
+          rsync -avz -e "ssh -i private_key" BASE_DIR_FILE_PATH $SERVER_USER@$SERVER_HOST:~/APP_DIR_FILE_PATH-V2
+          rm pr
+          ivate_key
+
+      - name: Switch to New Version
+        if: success()
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SERVER_USER: ${{ secrets.SERVER_USER }}
+          SERVER_HOST: ${{ secrets.SERVER_HOST }}
+        run: |
+          echo "$SSH_PRIVATE_KEY" > private_key
+          chmod 600 private_key
+          ssh -i private_key $SERVER_USER@$SERVER_HOST "ln -sfn ~/iGotha/backend-v2 ~/iGotha/backend"
+          rm private_key
+
+      - name: Rollback to Previous Version
+        if: failure()
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SERVER_USER: ${{ secrets.SERVER_USER }}
+          SERVER_HOST: ${{ secrets.SERVER_HOST }}
+        run: |
+          echo "$SSH_PRIVATE_KEY" > private_key
+          chmod 600 private_key
+          ssh -i private_key $SERVER_USER@$SERVER_HOST "ln -sfn ~/secrets.BACKUP_DIR_FILE_PATH ~/secrets.BASE_DIR_FILE_PATH"
+          rm private_key
