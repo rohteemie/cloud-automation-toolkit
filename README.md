@@ -1,8 +1,8 @@
-# Cloud and DevOps Automation Toolkit
-
 <p align="center">
   <img src="logo/cloud-toolkit-logo.gif" alt="cloud-toolkit-logo">
 </p>
+
+# Cloud and DevOps Automation Toolkit
 
 This repository contains a set of automated bash scripts designed to streamline the setup of a cloud server environment for hosting applications. These scripts provide a quick and consistent way to configure and deploy applications built with Node.js and Python on an Ubuntu server. They handle essential updates, upgrades, and package installations, making it easy to set up and deploy applications on a fresh server.
 
